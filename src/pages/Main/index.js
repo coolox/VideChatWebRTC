@@ -1,18 +1,21 @@
 import {useState, useEffect, useRef} from 'react';
-import socket from '../../socket';
+import socket from '../../socket/index.js';
 import ACTIONS from '../../socket/actions';
-import {useHistory} from 'react-router';
+import {useNavigate} from 'react-router-dom';
 import {v4} from 'uuid';
 
 export default function Main() {
-  const history = useHistory();
-  const [rooms, updateRooms] = useState([]);
+  const navigate = useNavigate();
+  const [rooms, setRooms] = useState([]);
   const rootNode = useRef();
+
+  console.log('rootNode', rootNode);
 
   useEffect(() => {
     socket.on(ACTIONS.SHARE_ROOMS, ({rooms = []} = {}) => {
+      
       if (rootNode.current) {
-        updateRooms(rooms);
+        setRooms(rooms);
       }
     });
   }, []);
@@ -26,14 +29,14 @@ export default function Main() {
           <li key={roomID}>
             {roomID}
             <button onClick={() => {
-              history.push(`/room/${roomID}`);
+              navigate(`/room/${roomID}`);
             }}>JOIN ROOM</button>
           </li>
         ))}
       </ul>
 
       <button onClick={() => {
-        history.push(`/room/${v4()}`);
+        navigate(`/room/${v4()}`);
       }}>Create New Room</button>
     </div>
   );

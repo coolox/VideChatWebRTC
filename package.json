@@ -11,8 +11,8 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router": "^5.2.0",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
+    "react-router-dom": "^6.16.0",
+    "react-scripts": "^4.0.3",
     "socket.io": "^4.0.0",
     "socket.io-client": "^4.0.0",
     "uuid": "^8.3.2",
@@ -21,7 +21,7 @@
   "scripts": {
     "start:dev-server": "npx nodemon server.js",
     "start:dev": "react-scripts start",
-    "start": "node server.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

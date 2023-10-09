@@ -1,12 +1,27 @@
 const path = require('path');
 const express = require('express');
-const app = express();
-const server = require('http').createServer(app);
-const io = require('socket.io')(server);
-const {version, validate} = require('uuid');
+const { createServer } = require('node:http');
+const { join } = require('node:path');
+const { Server } = require('socket.io');
 
+const app = express();
+const server = createServer(app);
+const io = new Server(server);
+
+const {version, validate} = require('uuid');
 const ACTIONS = require('./src/socket/actions');
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3004;
+
+app.get('/', (req, res) => {
+  res.send('<h1>Server is here</h1>')
+  })
+  app.get('/chat/', (req, res) => {
+    res.sendFile(join(__dirname, './src/Chat.html'));
+  });
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+});
 
 function getClientRooms() {
   const {rooms} = io.sockets.adapter;
@@ -23,6 +38,7 @@ function shareRoomsInfo() {
 io.on('connection', socket => {
   shareRoomsInfo();
 
+  
   socket.on(ACTIONS.JOIN, config => {
     const {room: roomID} = config;
     const {rooms: joinedRooms} = socket;

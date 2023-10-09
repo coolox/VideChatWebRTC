@@ -18,7 +18,7 @@ export default function useWebRTC(roomID) {
 
       return list;
     }, cb);
-  }, [clients, updateClients]);
+  }, [updateClients]);
 
   const peerConnections = useRef({});
   const localMediaStream = useRef(null);
@@ -93,7 +93,7 @@ export default function useWebRTC(roomID) {
     return () => {
       socket.off(ACTIONS.ADD_PEER);
     }
-  }, []);
+  }, [addNewClient]);
 
   useEffect(() => {
     async function setRemoteMedia({peerID, sessionDescription: remoteDescription}) {
@@ -149,7 +149,7 @@ export default function useWebRTC(roomID) {
     return () => {
       socket.off(ACTIONS.REMOVE_PEER);
     }
-  }, []);
+  }, [updateClients]);
 
   useEffect(() => {
     async function startCapture() {
@@ -180,7 +180,7 @@ export default function useWebRTC(roomID) {
 
       socket.emit(ACTIONS.LEAVE);
     };
-  }, [roomID]);
+  }, [roomID, addNewClient]);
 
   const provideMediaRef = useCallback((id, node) => {
     peerMediaElements.current[id] = node;
