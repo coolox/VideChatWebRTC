@@ -10,7 +10,6 @@ function layout(clientsNumber = 1) {
 
       return acc;
     }, []);
-
   const rowsNumber = pairs.length;
   const height = `${100 / rowsNumber}%`;
 

@@ -9,5 +9,4 @@ const ACTIONS = {
   ICE_CANDIDATE: 'ice-candidate',
   SESSION_DESCRIPTION: 'session-description'
 };
-
 module.exports = ACTIONS;

@@ -1,7 +1,7 @@
 export default function NotFound404() {
   return (
     <div>
-      NOT FOUND.
+      NOT FOUND  404.
     </div>
   );
 }
